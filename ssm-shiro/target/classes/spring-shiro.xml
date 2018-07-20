@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+    <!--shiro过滤器-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!--Shiro的核心安全接口，这个属性是必须的  加载管理器-->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 没有登录的时候跳转到这个页面-->
+        <property name="loginUrl" value="/login"/>
+        <!--没有权限操作是跳转的页面-->
+        <property name="unauthorizedUrl" value="/unlogin"/>
+        <!--Shiro连接约束配置，即过滤链的定义-->
+        <property name="filterChainDefinitions">
+            <value>
+                /login=anon  <!-- 可以不需要登录 -->
+                /readData=authc,perms[/readData] <!--  perms 表示需要该权限才能访问的页面  根据[/readData]数据库字段的值获得权限去跳转页面-->
+                /readName=authc,perms[/readName] <!--  perms 表示需要该权限才能访问的页面  根据[/readName]数据库字段的值获得权限去跳转页面-->
+                /*=authc  <!-- authc表示需要认证才能访问的页面 -->
+            </value>
+        </property>
+    </bean>
+
+    <!--安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--注入自定义Realm-->
+        <property name="realm" ref="customRealm"/>
+
+    </bean>
+
+    <!--自定义Realm-->
+    <bean id="customRealm" class="com.shiro.shiro.CustomRealm">
+    </bean>
+
+
+</beans>
