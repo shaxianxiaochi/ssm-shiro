@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--设置-->
+    <settings>
+        <!--设置缓存-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--设置resultMap的自动映射级别为NONE（禁止自动匹配）PARTIAL(自动匹配) FULL (自动匹配复杂映射)-->
+        <setting name="autoMappingBehavior" value="FULL" />
+        <!--设置全局性懒加载-->
+        <setting name="lazyLoadingEnabled" value="false" />
+    </settings>
+    <!--类的别名-->
+    <typeAliases>
+        <package name="com.smbms.pojo" />
+    </typeAliases>
+</configuration>

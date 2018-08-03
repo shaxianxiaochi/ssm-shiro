@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smbms.mapper.BillMapper">
+    <insert id="add" parameterType="Bill">
+        INSERT INTO smbms_bill
+        (
+            id,billCode,productName,productDesc,productUnit,productCount,totalPrice,isPayment,createdBy,creationDate,modifyBy,modifyDate,providerId
+        )
+        VALUES
+        (
+            #{id},#{billCode},#{productName},#{productDesc},#{productUnit},#{productCount},#{totalPrice},#{isPayment},#{createdBy},#{creationDate},#{modifyBy},#{modifyDate},#{providerId}
+        )
+    </insert>
+
+    <delete id="deleteBillById" parameterType="int">
+        DELETE FROM smbms_bill WHERE id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Bill">
+        UPDATE smbms_bill
+        <trim prefix="set" suffixOverrides=",">
+           <if test="id != null">id = #{id},</if>
+           <if test="billCode != null">billCode = #{billCode},</if>
+           <if test="productName != null">productName = #{productName},</if>
+           <if test="productDesc != null">productDesc = #{productDesc},</if>
+           <if test="productUnit != null">productUnit = #{productUnit},</if>
+           <if test="productCount != null">productCount = #{productCount},</if>
+           <if test="totalPrice != null">totalPrice = #{totalPrice},</if>
+           <if test="isPayment != null">isPayment = #{isPayment},</if>
+           <if test="createdBy != null">createdBy = #{createdBy},</if>
+           <if test="creationDate != null">creationDate = #{creationDate},</if>
+           <if test="modifyBy != null">modifyBy = #{modifyBy},</if>
+           <if test="modifyDate != null">modifyDate = #{modifyDate},</if>
+           <if test="providerId != null">providerId = #{providerId},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <select id="getBillCount" parameterType="map" resultType="int">
+        SELECT COUNT(1) FROM smbms_bill sb
+        <include refid="bill_where" />
+    </select>
+
+    <select id="getBillById" parameterType="int" resultType="Bill">
+        SELECT * FROM smbms_bill WHERE id=#{id}
+    </select>
+
+    <select id="getBillByMap" parameterType="map" resultType="Bill">
+        SELECT *,sp.proName AS providerName from smbms_bill sb
+        INNER JOIN smbms_provider sp ON sb.providerId = sp.id
+        <include refid="bill_where" />
+    </select>
+
+    <select id="getBillListByObj" parameterType="map" resultType="Bill">
+        SELECT *,sp.proName AS providerName from smbms_bill sb
+        INNER JOIN smbms_provider sp ON sb.providerId = sp.id
+        <include refid="bill_where" />
+    </select>
+
+    <select id="getBillPageByMap" parameterType="map" resultType="Bill">
+        SELECT * from smbms_bill
+        <include refid="bill_where" />
+        limit #{currPageNo},#{pageSize}
+    </select>
+
+    <sql id="bill_where">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">and sb.id = #{id}</if>
+            <if test="billCode != null">and billCode = #{billCode}</if>
+            <if test="productName != null">and productName LIKE CONCAT('%',#{productName},'%') </if>
+            <if test="productDesc != null">and productDesc = #{productDesc}</if>
+            <if test="productUnit != null">and productUnit = #{productUnit}</if>
+            <if test="productCount != null">and productCount = #{productCount}</if>
+            <if test="totalPrice != null">and totalPrice = #{totalPrice}</if>
+            <if test="isPayment != null">and isPayment = #{isPayment}</if>
+            <if test="createdBy != null">and createdBy = #{createdBy}</if>
+            <if test="creationDate != null">and creationDate = #{creationDate}</if>
+            <if test="modifyBy != null">and modifyBy = #{modifyBy}</if>
+            <if test="modifyDate != null">and modifyDate = #{modifyDate}</if>
+            <if test="providerId != null">and providerId = #{providerId}</if>
+        </trim>
+    </sql>
+
+</mapper>

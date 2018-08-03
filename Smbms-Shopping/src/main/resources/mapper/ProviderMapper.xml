@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smbms.mapper.ProviderMapper">
+    <insert id="add" parameterType="Provider">
+        INSERT INTO smbms_provider
+        (
+            id,proCode,proName,proDesc,proContact,proPhone,proAddress,proFax,createdBy,creationDate,modifyDate,modifyBy
+        )
+        VALUES
+        (
+            #{id},#{proCode},#{proName},#{proDesc},#{proContact},#{proPhone},#{proAddress},#{proFax},#{createdBy},#{creationDate},#{modifyDate},#{modifyBy}
+        )
+    </insert>
+
+    <delete id="deleteProviderById" parameterType="int">
+        DELETE FROM smbms_provider WHERE id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Provider">
+        UPDATE smbms_provider
+        <trim prefix="set" suffixOverrides=",">
+           <if test="id != null">id = #{id},</if>
+           <if test="proCode != null">proCode = #{proCode},</if>
+           <if test="proName != null">proName = #{proName},</if>
+           <if test="proDesc != null">proDesc = #{proDesc},</if>
+           <if test="proContact != null">proContact = #{proContact},</if>
+           <if test="proPhone != null">proPhone = #{proPhone},</if>
+           <if test="proAddress != null">proAddress = #{proAddress},</if>
+           <if test="proFax != null">proFax = #{proFax},</if>
+           <if test="createdBy != null">createdBy = #{createdBy},</if>
+           <if test="creationDate != null">creationDate = #{creationDate},</if>
+           <if test="modifyDate != null">modifyDate = #{modifyDate},</if>
+           <if test="modifyBy != null">modifyBy = #{modifyBy},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <select id="getProviderCount" parameterType="map" resultType="int">
+        SELECT COUNT(1) FROM smbms_provider
+        <include refid="provider_where" />
+    </select>
+
+    <select id="getProviderById" parameterType="int" resultType="Provider">
+        SELECT * FROM smbms_provider WHERE id=#{id}
+    </select>
+
+    <select id="getProviderByMap" parameterType="map" resultType="Provider">
+        SELECT * FROM smbms_provider
+        <include refid="provider_where" />
+    </select>
+
+    <select id="getProviderListByObj" parameterType="map" resultType="Provider">
+        SELECT * from smbms_provider
+        <include refid="provider_where" />
+    </select>
+
+    <select id="getProviderPageByMap" parameterType="map" resultType="Provider">
+        SELECT * from smbms_provider
+        <include refid="provider_where" />
+        limit #{currPageNo},#{pageSize}
+    </select>
+
+    <select id="checkByMap" parameterType="map" resultType="Provider">
+        SELECT * FROM smbms_provider
+        <include refid="provider_where_abs" />
+    </select>
+
+    <sql id="provider_where">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">and id = #{id}</if>
+            <if test="proCode != null">and proCode like concat('%',#{proCode},'%')</if>
+            <if test="proName != null">and proName like concat('%',#{proName},'%') </if>
+            <if test="proDesc != null">and proDesc = #{proDesc}</if>
+            <if test="proContact != null">and proContact = #{proContact}</if>
+            <if test="proPhone != null">and proPhone = #{proPhone}</if>
+            <if test="proAddress != null">and proAddress = #{proAddress}</if>
+            <if test="proFax != null">and proFax = #{proFax}</if>
+            <if test="createdBy != null">and createdBy = #{createdBy}</if>
+            <if test="creationDate != null">and creationDate = #{creationDate}</if>
+            <if test="modifyDate != null">and modifyDate = #{modifyDate}</if>
+            <if test="modifyBy != null">and modifyBy = #{modifyBy}</if>
+        </trim>
+    </sql>
+
+    <sql id="provider_where_abs">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">and id = #{id}</if>
+            <if test="proCode != null">and proCode = #{proCode}</if>
+            <if test="proName != null">and proName = #{proName}</if>
+            <if test="proDesc != null">and proDesc = #{proDesc}</if>
+            <if test="proContact != null">and proContact = #{proContact}</if>
+            <if test="proPhone != null">and proPhone = #{proPhone}</if>
+            <if test="proAddress != null">and proAddress = #{proAddress}</if>
+            <if test="proFax != null">and proFax = #{proFax}</if>
+            <if test="createdBy != null">and createdBy = #{createdBy}</if>
+            <if test="creationDate != null">and creationDate = #{creationDate}</if>
+            <if test="modifyDate != null">and modifyDate = #{modifyDate}</if>
+            <if test="modifyBy != null">and modifyBy = #{modifyBy}</if>
+        </trim>
+    </sql>
+
+</mapper>

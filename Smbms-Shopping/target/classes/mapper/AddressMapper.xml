@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smbms.mapper.AddressMapper">
+    <insert id="add" parameterType="Address">
+        INSERT INTO smbms_address
+        (
+            id,contact,addressDesc,postCode,tel,createdBy,creationDate,modifyBy,modifyDate,userId
+        )
+        VALUES
+        (
+            #{id},#{contact},#{addressDesc},#{postCode},#{tel},#{createdBy},#{creationDate},#{modifyBy},#{modifyDate},#{userId}
+        )
+    </insert>
+
+    <delete id="deleteAddressById" parameterType="int">
+        DELETE FROM smbms_address WHERE id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Address">
+        UPDATE smbms_address
+        <trim prefix="set" suffixOverrides=",">
+           <if test="id != null">id = #{id},</if>
+           <if test="contact != null">contact = #{contact},</if>
+           <if test="addressDesc != null">addressDesc = #{addressDesc},</if>
+           <if test="postCode != null">postCode = #{postCode},</if>
+           <if test="tel != null">tel = #{tel},</if>
+           <if test="createdBy != null">createdBy = #{createdBy},</if>
+           <if test="creationDate != null">creationDate = #{creationDate},</if>
+           <if test="modifyBy != null">modifyBy = #{modifyBy},</if>
+           <if test="modifyDate != null">modifyDate = #{modifyDate},</if>
+           <if test="userId != null">userId = #{userId},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <select id="getAddressCount" parameterType="map" resultType="int">
+        SELECT COUNT(1) FROM smbms_address
+        <include refid="address_where" />
+    </select>
+
+    <select id="getAddressById" parameterType="int" resultType="Address">
+        SELECT * FROM smbms_address WHERE id=#{id}
+    </select>
+
+    <select id="getAddressByMap" parameterType="map" resultType="Address">
+        SELECT * FROM smbms_address
+        <include refid="address_where" />
+    </select>
+
+    <select id="getAddressListByObj" parameterType="map" resultType="Address">
+        SELECT * from smbms_address
+        <include refid="address_where" />
+    </select>
+
+    <select id="getAddressPageByMap" parameterType="map" resultType="Address">
+        SELECT * from smbms_address
+        <include refid="address_where" />
+        limit #{currPageNo},#{pageSize}
+    </select>
+
+    <sql id="address_where">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">and id = #{id}</if>
+            <if test="contact != null">and contact = #{contact}</if>
+            <if test="addressDesc != null">and addressDesc = #{addressDesc}</if>
+            <if test="postCode != null">and postCode = #{postCode}</if>
+            <if test="tel != null">and tel = #{tel}</if>
+            <if test="createdBy != null">and createdBy = #{createdBy}</if>
+            <if test="creationDate != null">and creationDate = #{creationDate}</if>
+            <if test="modifyBy != null">and modifyBy = #{modifyBy}</if>
+            <if test="modifyDate != null">and modifyDate = #{modifyDate}</if>
+            <if test="userId != null">and userId = #{userId}</if>
+        </trim>
+    </sql>
+
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smbms.mapper.RoleMapper">
+    <insert id="add" parameterType="Role">
+        INSERT INTO smbms_role
+        (
+            id,roleCode,roleName,createdBy,creationDate,modifyBy,modifyDate
+        )
+        VALUES
+        (
+            #{id},#{roleCode},#{roleName},#{createdBy},#{creationDate},#{modifyBy},#{modifyDate}
+        )
+    </insert>
+
+    <delete id="deleteRoleById" parameterType="int">
+        DELETE FROM smbms_role WHERE id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Role">
+        UPDATE smbms_role
+        <trim prefix="set" suffixOverrides=",">
+           <if test="id != null">id = #{id},</if>
+           <if test="roleCode != null">roleCode = #{roleCode},</if>
+           <if test="roleName != null">roleName = #{roleName},</if>
+           <if test="createdBy != null">createdBy = #{createdBy},</if>
+           <if test="creationDate != null">creationDate = #{creationDate},</if>
+           <if test="modifyBy != null">modifyBy = #{modifyBy},</if>
+           <if test="modifyDate != null">modifyDate = #{modifyDate},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <select id="getRoleCount" parameterType="map" resultType="int">
+        SELECT COUNT(1) FROM smbms_role
+        <include refid="role_where" />
+    </select>
+
+    <select id="getRoleById" parameterType="int" resultType="Role">
+        SELECT * FROM smbms_role WHERE id=#{id}
+    </select>
+
+    <select id="getRoleByMap" parameterType="map" resultType="Role">
+        SELECT * FROM smbms_role
+        <include refid="role_where" />
+    </select>
+
+    <select id="getRoleListByObj" parameterType="map" resultType="Role">
+        SELECT * from smbms_role
+        <include refid="role_where" />
+    </select>
+
+    <select id="getRolePageByMap" parameterType="map" resultType="Role">
+        SELECT * from smbms_role
+        <include refid="role_where" />
+        limit #{currPageNo},#{pageSize}
+    </select>
+
+    <sql id="role_where">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">and id = #{id}</if>
+            <if test="roleCode != null">and roleCode = #{roleCode}</if>
+            <if test="roleName != null">and roleName = #{roleName}</if>
+            <if test="createdBy != null">and createdBy = #{createdBy}</if>
+            <if test="creationDate != null">and creationDate = #{creationDate}</if>
+            <if test="modifyBy != null">and modifyBy = #{modifyBy}</if>
+            <if test="modifyDate != null">and modifyDate = #{modifyDate}</if>
+        </trim>
+    </sql>
+
+</mapper>
