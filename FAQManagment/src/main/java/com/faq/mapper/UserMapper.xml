@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.faq.mapper.FaqsMapper">
+
+<select id="getBy" parameterType="map" resultType="Faqs">
+    SELECT f.*,c.cname from faqs f JOIN classes c on f.classid=c.id
+    <include refid="where_by"/>
+</select>
+
+    <select id="getByTitle" resultType="Faqs" parameterType="integer">
+        select f.*,c.cname from faqs f JOIN classes c on c.id=f.classid where f.id=#{id}
+    </select>
+
+    <insert id="insert" parameterType="Faqs">
+        INSERT INTO faqs(id,title,createdate,content,classid)
+        VALUES (#{id},#{title},#{createDate},#{content},#{classid})
+    </insert>
+
+    <sql id="where_by">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id!=null">and id=#{id}</if>
+            <if test="title!=null">and title=#{title}</if>
+            <if test="createDate!=null">and createDate=#{createDate}</if>
+            <if test="content!=null">and content=#{content}</if>
+            <if test="classid!=null">and classid=#{classid}</if>
+            <if test="cName!=null">and cName=#{AcName}</if>
+        </trim>
+    </sql>
+</mapper>

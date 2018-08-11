@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="empdb@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.3">
+    <root id="1"/>
+    <schema id="2" parent="1" name="empdb">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="aaa"/>
+    <schema id="4" parent="1" name="bbb"/>
+    <schema id="5" parent="1" name="branchesdb"/>
+    <schema id="6" parent="1" name="ch01"/>
+    <schema id="7" parent="1" name="easybuy"/>
+    <schema id="8" parent="1" name="financingproductdb"/>
+    <schema id="9" parent="1" name="games"/>
+    <schema id="10" parent="1" name="information_schema"/>
+    <schema id="11" parent="1" name="leavedb"/>
+    <schema id="12" parent="1" name="mybatis"/>
+    <schema id="13" parent="1" name="myhouse"/>
+    <schema id="14" parent="1" name="myschool"/>
+    <schema id="15" parent="1" name="myschool1.0"/>
+    <schema id="16" parent="1" name="mysql"/>
+    <schema id="17" parent="1" name="performance_schema"/>
+    <schema id="18" parent="1" name="smbms"/>
+    <schema id="19" parent="1" name="studentdb"/>
+    <schema id="20" parent="1" name="subwaydb"/>
+    <schema id="21" parent="1" name="test"/>
+    <schema id="22" parent="1" name="userdb"/>
+    <table id="23" parent="2" name="employee"/>
+    <column id="24" parent="23" name="eId">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="25" parent="23" name="eName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="26" parent="23" name="eBirthday">
+      <Position>3</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="27" parent="23" name="eAddress">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="28" parent="23" name="eSex">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="29" parent="23" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>eId</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

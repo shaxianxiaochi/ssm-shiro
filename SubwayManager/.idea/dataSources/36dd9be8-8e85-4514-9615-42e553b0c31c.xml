@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="subwaydb@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.3">
+    <root id="1"/>
+    <schema id="2" parent="1" name="subwaydb">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="aaa"/>
+    <schema id="4" parent="1" name="appinfodb"/>
+    <schema id="5" parent="1" name="bbb"/>
+    <schema id="6" parent="1" name="branchesdb"/>
+    <schema id="7" parent="1" name="ch01"/>
+    <schema id="8" parent="1" name="easybuy"/>
+    <schema id="9" parent="1" name="empdb"/>
+    <schema id="10" parent="1" name="financingproductdb"/>
+    <schema id="11" parent="1" name="games"/>
+    <schema id="12" parent="1" name="information_schema"/>
+    <schema id="13" parent="1" name="leavedb"/>
+    <schema id="14" parent="1" name="mybatis"/>
+    <schema id="15" parent="1" name="myhouse"/>
+    <schema id="16" parent="1" name="myschool"/>
+    <schema id="17" parent="1" name="myschool1.0"/>
+    <schema id="18" parent="1" name="mysql"/>
+    <schema id="19" parent="1" name="performance_schema"/>
+    <schema id="20" parent="1" name="smbms"/>
+    <schema id="21" parent="1" name="studentdb"/>
+    <schema id="22" parent="1" name="test"/>
+    <schema id="23" parent="1" name="userdb"/>
+    <table id="24" parent="2" name="subwayinfo"/>
+    <column id="25" parent="24" name="ID">
+      <Position>1</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="26" parent="24" name="SUBWAYNAME">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="24" name="STARTSTATION">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="24" name="ENDSTATION">
+      <Position>4</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="29" parent="24" name="STATIONNUM">
+      <Position>5</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="30" parent="24" name="STARTTIME">
+      <Position>6</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="24" name="PRICE">
+      <Position>7</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;2&apos;</DefaultExpression>
+    </column>
+    <key id="32" parent="24" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

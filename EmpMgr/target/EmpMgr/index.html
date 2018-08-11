@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+    <table border="1">
+        <tr>
+            <td>员工编号</td>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>性别</td>
+            <td>地址</td>
+        </tr>
+    </table>
+    <button id="home">首页</button>
+    <button id="prev">上一页</button>
+    【<span id="currPageNo"></span>/<span id="totalPageCount"></span>】
+    <button id="next">下一页</button>
+    <button id="end">尾页</button>
+</center>
+<script type="text/javascript" src="resources/js/jquery-1.8.3-mh-community.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var pageSizeParam = 4;
+        var currPageNoParam = 1;
+        var totalPageCount = 0;
+        init();
+        function init() {
+            getPage(pageSizeParam,currPageNoParam);
+        }
+        $("#home").click(function () {
+            getPage(pageSizeParam,1);
+        });
+        $("#prev").click(function () {
+            getPage(pageSizeParam,currPageNoParam-1);
+        });
+        $("#next").click(function () {
+            getPage(pageSizeParam,currPageNoParam+1);
+        });
+        $("#end").click(function () {
+            getPage(pageSizeParam,totalPageCount);
+        });
+
+
+        function getPage(pageSize,currPageNo) {
+            var url = "/employee/page.action";
+            var params = {
+                "pageSize":pageSize,
+                "currPageNo":currPageNo
+            };
+            $.post(url,params,function (data) {
+                pageSizeParam = data.pageSize;
+                currPageNoParam = data.currPageNo;
+                $("#currPageNo").text(data.currPageNo);
+                totalPageCount = data.totalPageCount;
+                $("#totalPageCount").text(data.totalPageCount);
+                var context = "";
+                $(data.employeeList).each(function () {
+                    context += "<tr>";
+                    context += "<td>"+this.eId+"</td>";
+                    context += "<td>"+this.eName+"</td>";
+                    context += "<td>"+this.age+"</td>";
+                    context += "<td>"+this.eSex+"</td>";
+                    context += "<td>"+this.eAddress+"</td>";
+                    context += "</tr>";
+                });
+                $("table tr:gt(0)").remove();
+                $("table").append(context);
+            },"json");
+        }
+    });
+</script>
+</body>
+</html>
