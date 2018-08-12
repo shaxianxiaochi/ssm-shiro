@@ -39,7 +39,13 @@ public class JumpController {
             map.put("name",name);
             list=jumpService.getQuery(map);
         }
-        System.out.println(list.toString());
+        for (int i=0;i<list.size();i++){
+            Jump j=list.get(i);
+            Date brithday=j.getBrithday();
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            String format = sdf.format(brithday);
+            j.setBrithday(java.sql.Date.valueOf(format));
+        }
         return list;
     }
 }
